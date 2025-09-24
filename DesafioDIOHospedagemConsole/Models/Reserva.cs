@@ -2,13 +2,6 @@
 
 public class Reserva
 {
-  public Reserva(List<Pessoa> hospedes, Suite suite, int diasReservados)
-  {
-    Hospedes = hospedes;
-    Suite = suite;
-    DiasReservados = diasReservados;
-  }
-
   public List<Pessoa> Hospedes { get; set; }
   public Suite Suite { get; set; }
   public int DiasReservados { get; set; }
@@ -25,5 +18,17 @@ public class Reserva
     {
       return Suite.ValorDiaria * DiasReservados;
     }
+  }
+  public void CadastrarHospedes(List<Pessoa> hospedes)
+  {
+    Hospedes = hospedes;
+  }
+  public void CadastrarSuite(Suite suite)
+  {
+    Suite = suite;
+  }
+  public int ObterQuantidadeHospedes()
+  {
+    return Hospedes.Count;
   }
 }
