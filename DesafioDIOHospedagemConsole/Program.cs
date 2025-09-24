@@ -1,4 +1,5 @@
 ﻿using DesafioDIOHospedagemConsole.Models;
+using DesafioDIOHospedagemConsole.Utils;
 
 // Suites disponíveis
 List<Suite> suitesDisponiveis = new List<Suite>
@@ -16,106 +17,24 @@ List<Suite> suitesDisponiveis = new List<Suite>
 };
 // Variável que vai guardar a reserva que vai ser feita
 Reserva reserva = new Reserva();
+// Variável com funções uteis
+Utils utils = new Utils();
 
-Console.WriteLine("Bem Vindo ao Hotel!");
-Console.WriteLine("Deseja se hospedar sozinho ou com mais pessoas?");
-Console.WriteLine("1. Somente eu");
-Console.WriteLine("2. Eu e mais pessoas");
-int opcaoEscolhidaPessoas = Convert.ToInt32(Console.ReadLine());
-Console.Clear();
-int numeroPessoas = 1;
+int numeroSuite = 0;
 
-if (opcaoEscolhidaPessoas == 2)
-{
-  // Só executar esta linha se a opção 2 for escolhida
-  Console.WriteLine("Quantas pessoas irão se hospedar?");
-  int numeroPessoasConsole = Convert.ToInt32(Console.ReadLine());
+utils.Etapa1(reserva);
+numeroSuite = utils.Etapa2(reserva, suitesDisponiveis);
+utils.Etapa3(reserva);
 
-  while (numeroPessoasConsole > 4)
-  {
-    Console.WriteLine("A quantidade máxima de hospedes é 4. Escreva um outro número");
-    numeroPessoasConsole = Convert.ToInt32(Console.ReadLine());
-  }
-
-  numeroPessoas = numeroPessoasConsole;
-}
-
-List<Pessoa> listaPessoas = new List<Pessoa>();
-while (listaPessoas.Count < numeroPessoas)
-{
-  Console.WriteLine("Cadastro de pessoas");
-  Console.WriteLine($"Pessoa {listaPessoas.Count + 1}");
-  Console.WriteLine("Informe o nome:");
-  string nomePessoaConsole = Console.ReadLine();
-  Console.WriteLine("Informe o sobrenome:");
-  string sobrenomePessoaConsole = Console.ReadLine();
-
-  Pessoa novaPessoa = new Pessoa(nomePessoaConsole, sobrenomePessoaConsole);
-  listaPessoas.Add(novaPessoa);
-}
-reserva.CadastrarHospedes(listaPessoas);
-Console.Clear();
-
-Console.WriteLine("Que tipo de suíte você deseja?");
-Console.WriteLine("1. Premium");
-Console.WriteLine("2. Básica");
-int opcaoEscolhidaSuite = Convert.ToInt32(Console.ReadLine());
-Console.Clear();
-string tipoSuite = "";
-
-switch (opcaoEscolhidaSuite)
-{
-  case 1:
-    tipoSuite = "Premium";
-    break;
-  case 2:
-    tipoSuite = "Básica";
-    break;
-  default:
-    break;
-}
-
-List<Suite> suitesFiltradas = suitesDisponiveis.FindAll(suite => Convert.ToBoolean(suite.Tipo == tipoSuite));
-Console.WriteLine("Suítes disponíveis:");
-for (int i = 0; i < suitesFiltradas.Count; i++)
-{
-  Suite suite = suitesFiltradas[i];
-  Console.WriteLine("");
-  Console.WriteLine($"{i + 1}.");
-  Console.WriteLine($"Tipo: {suite.Tipo}");
-  Console.WriteLine($"Capacidade: {suite.Capacidade}");
-  Console.WriteLine($"Valor da diária: {suite.ValorDiaria.ToString("C2")}");
-}
-
-Console.WriteLine("Escreva o número da suíte que você deseja:");
-int opcaoEscolhidaNumeroSuite = Convert.ToInt32(Console.ReadLine());
-Suite suiteEscolhida = suitesFiltradas[opcaoEscolhidaNumeroSuite - 1];
-
-while (reserva.Hospedes.Count() > suiteEscolhida.Capacidade)
-{
-  Console.WriteLine($"O número de pessoas atual {reserva.Hospedes.Count()} excede a capacidade máxima da suíte. Ppor favor escolha uma outra suíte");
-  opcaoEscolhidaNumeroSuite = Convert.ToInt32(Console.ReadLine());
-  suiteEscolhida = suitesFiltradas[opcaoEscolhidaNumeroSuite - 1];
-}
-
-reserva.CadastrarSuite(suiteEscolhida);
-Console.Clear();
-
-Console.WriteLine("Por quantos dias você deseja ficar hospedado?");
-int diasReservadosConsole = Convert.ToInt32(Console.ReadLine());
-reserva.DiasReservados = diasReservadosConsole;
-Console.Clear();
-
-Console.WriteLine("Reserva Feita!");
+utils.Titulo("Reserva Feita!");
 Console.WriteLine("");
 Console.WriteLine($"Pessoas cadastradas ({reserva.ObterQuantidadeHospedes()}):");
-foreach (Pessoa pessoa in reserva.Hospedes)
+for (int i = 0; i < reserva.Hospedes.Count; i++)
 {
-  Console.WriteLine($"Nome: {pessoa.Nome}");
-  Console.WriteLine($"Sobrenome: {pessoa.Sobrenome}");
+  Console.WriteLine($"Hospede {i + 1}: {reserva.Hospedes[i].NomeCompleto()}");
 }
 Console.WriteLine("");
-Console.WriteLine($"Suite Nº {opcaoEscolhidaNumeroSuite}");
+Console.WriteLine($"Suite Nº {numeroSuite}");
 Console.WriteLine($"Tipo: {reserva.Suite.Tipo}");
 Console.WriteLine($"Capacidade: {reserva.Suite.Capacidade}");
 Console.WriteLine($"Valor da diaria: {reserva.Suite.ValorDiaria.ToString("C2")}");
