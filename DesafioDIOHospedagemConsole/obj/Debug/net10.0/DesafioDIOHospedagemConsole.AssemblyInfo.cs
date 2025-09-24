@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DesafioDIOHospedagemConsole")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5c1d62d7bb45ed3824a3333a57ca2fe2355eb5dd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+698bc1118ebef1d83eab3f61a422e404345985ec")]
 [assembly: System.Reflection.AssemblyProductAttribute("DesafioDIOHospedagemConsole")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DesafioDIOHospedagemConsole")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
