@@ -10,8 +10,7 @@ public class Reserva
     if (DiasReservados >= 10)
     {
       double porcentagem = Convert.ToDouble(Suite.ValorDiaria * DiasReservados) * 0.1;
-      Console.WriteLine($"Desconto de 10 dias:");
-      Console.WriteLine(porcentagem.ToString("C2"));
+      Console.WriteLine($"Desconto de 10 dias: {porcentagem.ToString("C2")}");
       return Suite.ValorDiaria * DiasReservados - Convert.ToDecimal(porcentagem);
     }
     else
